@@ -1,0 +1,26 @@
+accounts:
+  decta_no3d_merch_side:
+    description: Test Decta not 3D
+    fields:
+      - ["MXLB-7560-BQCK-1508", ""]
+      - ["TS01", ""]
+  decta_3d_merch_side:
+    description: Test Decta 3D
+    fields:
+      - ["MXLB-7560-BQCK-1508", ""]
+      - ["TS02", ""]
+params3d:
+  decta:
+    - ["rbid", "778899"]
+    - ["password", "pass1234"]
+  fdl:
+    - ["password", "hint"]
+initParameters:
+  - ["amount", 105]
+  - ["EUR", ""]
+  - ["save_card_1", ""]
+chargeParameters:
+  - ["f_extended", "301"]
+chargeHoldParameters:
+  - ["f_extended", "301"]
+  - ["charge_amount", 105]
