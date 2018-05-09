@@ -9,6 +9,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.io.IOException;
+import java.util.regex.Pattern;
 
 @Ignore
 public class Tests extends TestCase {
@@ -40,7 +41,7 @@ public class Tests extends TestCase {
 
     @AfterClass
     public static void quitDriver() {
-        driver.quit();
+        //driver.quit();
     }
 
     @Before
@@ -139,6 +140,42 @@ public class Tests extends TestCase {
         testOutput = transaction.getStringFile();
     }
 
+    //   GW side transaction  ------------------------------
+
+    private String initGWSideTransaction(TransactionForms transaction) throws Exception {
+        String body = transaction.init(config.getInitParams(caseName));
+        assertTrue("Init failed", body.matches("OK:.*RedirectOnsite:.*"));
+
+        transaction.logText(" Init is success, enter card data to GW side\n");
+        String linkToForm = body.substring(body.indexOf(':') + 1, body.indexOf('~'));
+        Pattern pattern2 = Pattern.compile("ccdata.php");
+        String[] words = pattern2.split(body);
+        linkToForm = "http://192.168.1.80/gw2test/ccdata.php"+ words[1];
+        return linkToForm;
+    }
+
+    private void chargeGWSideTransaction(TransactionForms transaction, String linkToForm, String expectedStatus) throws Exception {
+        transaction.setLink(linkToForm);
+        String[][] params = appendInitTransactionId(linkToForm, config.getChargeParams(card));
+        String body = transaction.chargeGWside(params);
+        assertTrue("Charge failed", body.matches(".*Status:" + expectedStatus + ".*"));
+
+        transaction.logText(" Not 3D, Charge is success\n");
+    }
+
+    public void smsNot3dGWSide() throws Exception {
+        type = "sms";
+        TransactionForms transaction = new TransactionForms(driver, getEnvironment() + "_" + type);
+
+        String linkToForm = initGWSideTransaction(transaction);
+        chargeGWSideTransaction(transaction, linkToForm, "Success");
+
+        testOutput = transaction.getStringFile();
+
+    }
+
+
+
     private String[][] appendInitTransactionId(String initTransactionId, String[][] params) {
         String[][] initTransactionIdParam = {{"init_transaction_id", initTransactionId}};
         return ArrayUtils.addAll(params, initTransactionIdParam);
@@ -161,6 +198,7 @@ public class Tests extends TestCase {
     private void inDesktop(String output) {
         System.out.println(output);
     }
+
 }
 
 

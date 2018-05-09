@@ -24,7 +24,6 @@ public final class DectaTests extends Tests {
 
         super.sms3dMerchantSide();
     }
-
     @Test
     public void dmsNot3dMerchantSide() throws Exception {
         caseName = "decta_no3d_merch_side";
@@ -41,4 +40,22 @@ public final class DectaTests extends Tests {
 
         super.dms3dMerchantSide();
     }
+//------------- GW side
+    @Test
+    public void smsNot3dGWSide() throws Exception {
+        caseName = "decta_no3d_GW_side";
+        card = config.cards.dectaNo3d;
+
+        super.smsNot3dGWSide();
+    }
+
+    @Test
+    public void sms3dGWSide() throws Exception {
+        caseName = "decta_3d_merch_side";
+        card = config.cards.decta3d;
+        params3d = config.params.params3d.decta;
+
+        //super.sms3dGWSide();
+    }
+
 }

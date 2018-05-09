@@ -81,8 +81,21 @@ public class TransactionForms {
 
         fillFields(parametersCharge, "id");
 
-        WebElement submitForm = driver.findElement(By.id("butt"));
+        WebElement submitForm = driver.findElement(By.id("ln_submit"));
         submitForm.click();
+
+        Thread.sleep(2000);
+        return driver.findElement(By.xpath("//body")).getText();
+    }
+
+    //--------------------- GWside
+    public String chargeGWside(String[][] parametersCharge) throws Exception {
+        driver.get(link);
+
+        fillFields(parametersCharge, "id");
+
+        //WebElement submitForm = driver.findElement(By.id("butt"));
+        //submitForm.click();
 
         Thread.sleep(2000);
         return driver.findElement(By.xpath("//body")).getText();

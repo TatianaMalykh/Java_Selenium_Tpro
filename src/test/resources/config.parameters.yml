@@ -1,14 +1,24 @@
 accounts:
   decta_no3d_merch_side:
-    description: Test Decta not 3D
+    description: Test Decta not 3D, merchant side
     fields:
       - ["MXLB-7560-BQCK-1508", ""]
       - ["TS01", ""]
   decta_3d_merch_side:
-    description: Test Decta 3D
+    description: Test Decta 3D, merchant side
     fields:
       - ["MXLB-7560-BQCK-1508", ""]
       - ["TS02", ""]
+  decta_no3d_GW_side:
+    description: Test Decta 3D, merchant side
+    fields:
+      - ["MXLB-7560-BQCK-1508", ""]
+      - ["TS03", ""]
+  decta_3d_GW_side:
+    description: Test Decta 3D, merchant side
+    fields:
+      - ["MXLB-7560-BQCK-1508", ""]
+      - ["TS04", ""]
 params3d:
   decta:
     - ["rbid", "778899"]
